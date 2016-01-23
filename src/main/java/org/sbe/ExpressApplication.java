@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication(exclude = { WebMvcAutoConfiguration.class })
+@SpringBootApplication//(exclude = { WebMvcAutoConfiguration.class })
 @Configuration
 public class ExpressApplication implements ExpressConfigurer {
 
@@ -18,7 +18,7 @@ public class ExpressApplication implements ExpressConfigurer {
         ctx.options("/hello", ((req, resp) -> {
             resp.getWriter().write("options");
         }));
-        ctx.post("/update", ((req, resp) -> {
+        ctx.post("/hello", ((req, resp) -> {
             resp.getWriter().write("oh, yeah!");
         }));
     }

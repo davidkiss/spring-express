@@ -24,15 +24,19 @@ public class ExpressConfiguration {
     }
 
     @Bean
+    public ExpressContext expressContext(){
+        return new ExpressContext();
+    }
+
+    @Bean(name = DispatcherServlet.HANDLER_MAPPING_BEAN_NAME)
     @Autowired(required = false)
-    public ExpressController snootController(List<ExpressConfigurer> configurers) {
-        ExpressContext context = new ExpressContext();
+    public ExpressHandlerMapping handlerMapping(ExpressContext context, List<ExpressConfigurer> configurers) {
         if (configurers != null) {
             for (ExpressConfigurer configurer : configurers) {
                 configurer.addHandlers(context);
             }
         }
-        return new ExpressController(context);
+        return new ExpressHandlerMapping(context);
     }
 
 }

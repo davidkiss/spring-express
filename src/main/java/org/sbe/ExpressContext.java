@@ -10,14 +10,14 @@ import java.util.Map;
  * Created by david on 2016-01-22.
  */
 public class ExpressContext {
-    private Map<String, HttpRequestHandler> handlerMap = new HashMap<>();
+    private Map<String, ExpressRequestMappingInfo> handlerMap = new HashMap<>();
 
-    public HttpRequestHandler resolveHandler(HttpMethod httpMethod, String path) {
+    public ExpressRequestMappingInfo resolveHandler(HttpMethod httpMethod, String path) {
         return handlerMap.get(getHandlerKey(httpMethod, path));
     }
 
     public void handle(HttpMethod httpMethod, String path, HttpRequestHandler httpRequestHandler) {
-        handlerMap.put(getHandlerKey(httpMethod, path), httpRequestHandler);
+        handlerMap.put(getHandlerKey(httpMethod, path), new ExpressRequestMappingInfo(httpMethod, path, httpRequestHandler));
     }
 
     private static String getHandlerKey(HttpMethod httpMethod, String path) {
