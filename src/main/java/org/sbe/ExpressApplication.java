@@ -2,25 +2,34 @@ package org.sbe;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.AsyncRestTemplate;
 
-@SpringBootApplication//(exclude = { WebMvcAutoConfiguration.class })
-@Configuration
-public class ExpressApplication implements ExpressConfigurer {
+import java.util.Map;
+import java.util.concurrent.Future;
 
-    public void addHandlers(ExpressContext ctx) {
-        ctx.get("/hello", ((req, resp) -> {
-            String msg = "Hello, " + Thread.currentThread().getName();
-            resp.getWriter().write(msg);
-            System.out.println(msg);
-        }));
-        ctx.options("/hello", ((req, resp) -> {
-            resp.getWriter().write("options");
-        }));
-        ctx.post("/hello", ((req, resp) -> {
-            resp.getWriter().write("oh, yeah!");
-        }));
+@SpringBootApplication
+public class ExpressApplication {
+
+    @Configuration
+    public static class RouteConfiguration implements ExpressRouteConfigurer {
+        private AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
+
+        public void addRoutes(ExpressContext ctx) {
+            ctx.get("/hello", (req, resp) -> {
+                Future<ResponseEntity<Map>> json = asyncRestTemplate.getForEntity(
+                        "https://api.github.com/emojis", Map.class);
+                resp.sendJson(json.get().getBody());
+                System.out.println("Hello, " + Thread.currentThread().getName());
+            });
+            ctx.options("/hello", ((req, resp) -> {
+                resp.send("options");
+            }));
+            ctx.post("/hello", ((req, resp) -> {
+                resp.send("oh, yeah!");
+            }));
+        }
     }
 
     public static void main(String[] args) {

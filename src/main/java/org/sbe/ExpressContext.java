@@ -16,7 +16,7 @@ public class ExpressContext {
         return handlerMap.get(getHandlerKey(httpMethod, path));
     }
 
-    public void handle(HttpMethod httpMethod, String path, HttpRequestHandler httpRequestHandler) {
+    public void handle(HttpMethod httpMethod, String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handlerMap.put(getHandlerKey(httpMethod, path), new ExpressRequestMappingInfo(httpMethod, path, httpRequestHandler));
     }
 
@@ -24,35 +24,35 @@ public class ExpressContext {
         return String.format("%s %s", httpMethod, path);
     }
 
-    public void delete(String path, HttpRequestHandler httpRequestHandler) {
+    public void delete(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handle(HttpMethod.DELETE, path, httpRequestHandler);
     }
 
-    public void get(String path, HttpRequestHandler httpRequestHandler) {
+    public void get(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handle(HttpMethod.GET, path, httpRequestHandler);
     }
 
-    public void head(String path, HttpRequestHandler httpRequestHandler) {
+    public void head(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handle(HttpMethod.HEAD, path, httpRequestHandler);
     }
 
-    public void options(String path, HttpRequestHandler httpRequestHandler) {
+    public void options(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handle(HttpMethod.OPTIONS, path, httpRequestHandler);
     }
 
-    public void post(String path, HttpRequestHandler httpRequestHandler) {
+    public void post(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handle(HttpMethod.POST, path, httpRequestHandler);
     }
 
-    public void patch(String path, HttpRequestHandler httpRequestHandler) {
+    public void patch(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handle(HttpMethod.PATCH, path, httpRequestHandler);
     }
 
-    public void put(String path, HttpRequestHandler httpRequestHandler) {
+    public void put(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handle(HttpMethod.PUT, path, httpRequestHandler);
     }
 
-    public void trace(String path, HttpRequestHandler httpRequestHandler) {
+    public void trace(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         handle(HttpMethod.TRACE, path, httpRequestHandler);
     }
 }

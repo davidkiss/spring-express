@@ -1,17 +1,23 @@
 package org.sbe;
 
 import org.springframework.http.HttpMethod;
-import org.springframework.web.HttpRequestHandler;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by david on 2016-01-22.
  */
 public class ExpressRequestMappingInfo {
+    public interface ExpressHttpRequestHandler {
+        void handleRequest(ExpressHttpServletRequest request, ExpressHttpServletResponse response) throws Exception;
+    }
+
     private final HttpMethod httpMethod;
     private final String path;
-    private final HttpRequestHandler httpRequestHandler;
+    private final ExpressHttpRequestHandler httpRequestHandler;
 
-    public ExpressRequestMappingInfo(HttpMethod httpMethod, String path, HttpRequestHandler httpRequestHandler) {
+    public ExpressRequestMappingInfo(HttpMethod httpMethod, String path, ExpressHttpRequestHandler httpRequestHandler) {
         this.httpMethod = httpMethod;
         this.path = path;
         this.httpRequestHandler = httpRequestHandler;
@@ -25,7 +31,7 @@ public class ExpressRequestMappingInfo {
         return path;
     }
 
-    public HttpRequestHandler getHttpRequestHandler() {
+    public ExpressHttpRequestHandler getHttpRequestHandler() {
         return httpRequestHandler;
     }
 }
