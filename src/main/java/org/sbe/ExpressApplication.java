@@ -21,7 +21,6 @@ public class ExpressApplication {
                 Future<ResponseEntity<Map>> json = asyncRestTemplate.getForEntity(
                         "https://api.github.com/emojis", Map.class);
                 resp.sendJson(json.get().getBody());
-                System.out.println("Hello, " + Thread.currentThread().getName());
             });
             ctx.options("/hello", ((req, resp) -> {
                 resp.send("options");
