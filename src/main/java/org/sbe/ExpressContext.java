@@ -1,23 +1,38 @@
 package org.sbe;
 
 import org.springframework.http.HttpMethod;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 import org.springframework.web.HttpRequestHandler;
+import org.springframework.web.servlet.HandlerMapping;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * Created by david on 2016-01-22.
  */
 public class ExpressContext {
-    private Map<String, ExpressRequestMappingInfo> handlerMap = new HashMap<>();
+    private PathMatcher pathMatcher = new AntPathMatcher();
+    private List<ExpressRequestMappingInfo> mappingInfoList = new ArrayList<>();
 
-    public ExpressRequestMappingInfo resolveHandler(HttpMethod httpMethod, String path) {
-        return handlerMap.get(getHandlerKey(httpMethod, path));
+    public ExpressRequestMappingInfo resolveHandler(HttpServletRequest request) {
+        ExpressRequestMappingInfo result = null;
+        for (ExpressRequestMappingInfo mappingInfo : mappingInfoList) {
+            if (pathMatcher.match(mappingInfo.getPath(), request.getRequestURI())) {
+                Map<String, String> uriVariables = pathMatcher.extractUriTemplateVariables(mappingInfo.getPath(), request.getRequestURI());
+
+                request.setAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, uriVariables);
+                result = mappingInfo;
+                break;
+            }
+
+        }
+        return result;
     }
 
     public void handle(HttpMethod httpMethod, String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
-        handlerMap.put(getHandlerKey(httpMethod, path), new ExpressRequestMappingInfo(httpMethod, path, httpRequestHandler));
+        mappingInfoList.add(new ExpressRequestMappingInfo(httpMethod, path, httpRequestHandler));
     }
 
     private static String getHandlerKey(HttpMethod httpMethod, String path) {

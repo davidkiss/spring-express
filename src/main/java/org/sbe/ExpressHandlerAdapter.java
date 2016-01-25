@@ -4,7 +4,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpResponse;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerAdapter;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,10 +32,12 @@ public class ExpressHandlerAdapter implements HandlerAdapter{
     public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         ModelAndView mav = null;
         if (handler != null) {
+            ExpressRequestMappingInfo expressRequestMappingInfo = (ExpressRequestMappingInfo) handler;
+
             ExpressHttpServletRequest expressHttpServletRequest = new ExpressHttpServletRequest(request);
             ExpressHttpServletResponse expressHttpServletResponse = new ExpressHttpServletResponse(response);
 
-            ((ExpressRequestMappingInfo) handler).getHttpRequestHandler().handleRequest(
+            expressRequestMappingInfo.getHttpRequestHandler().handleRequest(
                     expressHttpServletRequest, expressHttpServletResponse);
 
             if (expressHttpServletResponse.getBody() != null) {

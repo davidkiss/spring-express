@@ -17,7 +17,13 @@ public class ExpressApplication {
         private AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 
         public void addRoutes(ExpressContext ctx) {
-            ctx.get("/hello", (req, resp) -> {
+            ctx.get("/hello/{name}", (req, resp) -> {
+                resp.send("Hello, %s", req.params("name"));
+            });
+            ctx.get("/bye/{fname}", (req, resp) -> {
+                resp.send("Bye, %s", req.params("fname"));
+            });
+            ctx.get("/getjson", (req, resp) -> {
                 Future<ResponseEntity<Map>> json = asyncRestTemplate.getForEntity(
                         "https://api.github.com/emojis", Map.class);
                 resp.sendJson(json.get().getBody());

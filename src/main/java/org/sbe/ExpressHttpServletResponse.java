@@ -42,8 +42,10 @@ public class ExpressHttpServletResponse extends HttpServletResponseWrapper {
         this.modelAndView = new ModelAndView(view, model);
     }
 
-    public void send(String str) throws IOException {
-        getWriter().write(str);
+    public void send(String str, Object... args) throws IOException {
+        if (str != null) {
+            getWriter().write(String.format(str, args));
+        }
     }
 
     public void sendJson(Object body) throws IOException {

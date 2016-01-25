@@ -1,9 +1,5 @@
 package org.sbe;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +19,8 @@ public class ExpressHandlerMapping extends AbstractHandlerMapping {
 
     @Override
     protected Object getHandlerInternal(HttpServletRequest request) throws Exception {
-        ExpressRequestMappingInfo requestMappingInfo = context.resolveHandler(
-                HttpMethod.resolve(request.getMethod()), request.getRequestURI());
+        ExpressRequestMappingInfo requestMappingInfo = context.resolveHandler(request
+        );
         return requestMappingInfo;
     }
 }
