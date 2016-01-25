@@ -19,7 +19,7 @@ public class ExpressContext {
     public ExpressRequestMappingInfo resolveHandler(HttpServletRequest request) {
         ExpressRequestMappingInfo result = null;
         for (ExpressRequestMappingInfo mappingInfo : mappingInfoList) {
-            if (pathMatcher.match(mappingInfo.getPath(), request.getRequestURI())) {
+            if (request.getMethod().equals(mappingInfo.getHttpMethod().name()) && pathMatcher.match(mappingInfo.getPath(), request.getRequestURI())) {
                 Map<String, String> uriVariables = pathMatcher.extractUriTemplateVariables(mappingInfo.getPath(), request.getRequestURI());
 
                 request.setAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, uriVariables);

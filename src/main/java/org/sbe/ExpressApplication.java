@@ -32,7 +32,8 @@ public class ExpressApplication {
                 resp.send("options");
             }));
             ctx.post("/hello", ((req, resp) -> {
-                resp.send("oh, yeah!");
+                Map body = req.getBody(Map.class);
+                resp.send("oh, yeah! " + body);
             }));
         }
     }

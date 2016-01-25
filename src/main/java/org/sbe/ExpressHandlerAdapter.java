@@ -34,7 +34,7 @@ public class ExpressHandlerAdapter implements HandlerAdapter{
         if (handler != null) {
             ExpressRequestMappingInfo expressRequestMappingInfo = (ExpressRequestMappingInfo) handler;
 
-            ExpressHttpServletRequest expressHttpServletRequest = new ExpressHttpServletRequest(request);
+            ExpressHttpServletRequest expressHttpServletRequest = new ExpressHttpServletRequest(request, messageConverters);
             ExpressHttpServletResponse expressHttpServletResponse = new ExpressHttpServletResponse(response);
 
             expressRequestMappingInfo.getHttpRequestHandler().handleRequest(
