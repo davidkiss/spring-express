@@ -1,5 +1,6 @@
 Sample Spring Boot application class using Spring Boot Express:
 
+```java
 @SpringBootApplication
 public class ExpressApplication {
 
@@ -33,3 +34,4 @@ public class ExpressApplication {
 		SpringApplication.run(ExpressApplication.class, args);
 	}
 }
+```
