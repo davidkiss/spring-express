@@ -1,9 +1,8 @@
-package org.sbe;
+package org.sbe.routing;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;

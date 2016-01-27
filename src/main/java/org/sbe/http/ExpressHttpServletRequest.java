@@ -1,4 +1,4 @@
-package org.sbe;
+package org.sbe.http;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

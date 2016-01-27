@@ -1,9 +1,8 @@
-package org.sbe;
+package org.sbe.routing;
 
+import org.sbe.http.ExpressHttpServletRequest;
+import org.sbe.http.ExpressHttpServletResponse;
 import org.springframework.http.HttpMethod;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by david on 2016-01-22.

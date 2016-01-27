@@ -1,4 +1,4 @@
-package org.sbe;
+package org.sbe.routing;
 
 import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 
