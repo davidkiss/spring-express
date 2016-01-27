@@ -1,5 +1,8 @@
-Sample Spring Boot application class using Spring Boot Express:
-Main class
+Spring Boot Express = Spring Boot + Express.js.
+
+A simple and easy to learn Spring-based web framework inspired by Express.js.
+
+# Main class
 ```java
 @SpringBootApplication
 @EnableAutoConfiguration
@@ -14,7 +17,7 @@ public class SampleApplication {
 }
 ```
 
-Routes
+# Routes
 ```java
 @Configuration
 public class SampleRouteConfig implements ExpressRouteConfigurer {
