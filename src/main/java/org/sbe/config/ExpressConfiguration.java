@@ -70,16 +70,17 @@ public class ExpressConfiguration {
         return new ExpressContext();
     }
 
-    @Bean(name = DispatcherServlet.HANDLER_MAPPING_BEAN_NAME)
+//    @Bean(name = DispatcherServlet.HANDLER_MAPPING_BEAN_NAME)
+    @Bean
     @Autowired(required = false)
-    public ExpressHandlerMapping handlerMapping(ExpressContext context, List<ExpressRouteConfigurer> configurers) {
+    public ExpressHandlerMapping expressHandlerMapping(ExpressContext context, List<ExpressRouteConfigurer> configurers) {
         if (configurers != null) {
             for (ExpressRouteConfigurer configurer : configurers) {
                 configurer.configureRoutes(context);
             }
         }
         ExpressHandlerMapping handlerMapping = new ExpressHandlerMapping(context);
-        handlerMapping.setOrder(0);
+        handlerMapping.setOrder(Integer.MIN_VALUE);
         return handlerMapping;
     }
 

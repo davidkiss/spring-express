@@ -26,6 +26,18 @@ public class SampleRouteConfig implements ExpressRouteConfigurer {
             LOG.info("Accessing the secret section ...");
             resp.send("Method: %s", req.getMethod());
         });
+        // Matches /ab1cd:
+        ctx.get("/ab?cd", (req, resp) -> {
+            resp.send("ab?cd");
+        });
+        // Matches /b22cd:
+        ctx.get("/b*cd", (req, resp) -> {
+            resp.send("b*cd");
+        });
+        // Matches /c/a/b/cd:
+        ctx.get("/c/**/cd", (req, resp) -> {
+            resp.send("c/**/cd");
+        });
         // Using path params:
         ctx.get("/hello/{name}", (req, resp) -> {
             resp.send("Hello, %s!", req.params("name"));
