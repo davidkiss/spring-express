@@ -20,7 +20,7 @@ public class SampleRouteConfig implements ExpressRouteConfigurer {
 
     private AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 
-    public void addRoutes(ExpressContext ctx) {
+    public void configureRoutes(ExpressContext ctx) {
         // Will be executed for any HTTP method type (GET, POST, etc.):
         ctx.all("/secret", (req, resp) -> {
             LOG.info("Accessing the secret section ...");

@@ -75,7 +75,7 @@ public class ExpressConfiguration {
     public ExpressHandlerMapping handlerMapping(ExpressContext context, List<ExpressRouteConfigurer> configurers) {
         if (configurers != null) {
             for (ExpressRouteConfigurer configurer : configurers) {
-                configurer.addRoutes(context);
+                configurer.configureRoutes(context);
             }
         }
         ExpressHandlerMapping handlerMapping = new ExpressHandlerMapping(context);
