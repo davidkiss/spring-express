@@ -19,7 +19,7 @@ public class ExpressContext {
     public ExpressRequestMappingInfo resolveHandler(HttpServletRequest request) {
         ExpressRequestMappingInfo result = null;
         for (ExpressRequestMappingInfo mappingInfo : mappingInfoList) {
-            if (request.getMethod().equals(mappingInfo.getHttpMethod().name()) && pathMatcher.match(mappingInfo.getPath(), request.getRequestURI())) {
+            if (isMethodMatching(request, mappingInfo) && isPathMaching(request, mappingInfo)) {
                 Map<String, String> uriVariables = pathMatcher.extractUriTemplateVariables(mappingInfo.getPath(), request.getRequestURI());
 
                 request.setAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, uriVariables);
@@ -31,12 +31,20 @@ public class ExpressContext {
         return result;
     }
 
-    public void handle(HttpMethod httpMethod, String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
+    private static boolean isMethodMatching(HttpServletRequest request, ExpressRequestMappingInfo mappingInfo) {
+        return mappingInfo.getHttpMethod() == null || mappingInfo.getHttpMethod().name().equals(request.getMethod());
+    }
+
+    private boolean isPathMaching(HttpServletRequest request, ExpressRequestMappingInfo mappingInfo) {
+        return pathMatcher.match(mappingInfo.getPath(), request.getRequestURI());
+    }
+
+    private void handle(HttpMethod httpMethod, String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
         mappingInfoList.add(new ExpressRequestMappingInfo(httpMethod, path, httpRequestHandler));
     }
 
-    private static String getHandlerKey(HttpMethod httpMethod, String path) {
-        return String.format("%s %s", httpMethod, path);
+    public void all(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {
+        handle(null, path, httpRequestHandler);
     }
 
     public void delete(String path, ExpressRequestMappingInfo.ExpressHttpRequestHandler httpRequestHandler) {

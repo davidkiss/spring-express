@@ -2,6 +2,8 @@ package org.sbe;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +31,7 @@ import java.util.List;
  * Created by david on 2016-01-22.
  */
 @Configuration
+@ConditionalOnBean(ExpressRouteConfigurer.class)
 public class ExpressConfiguration {
 
     private static boolean romePresent =
@@ -53,7 +56,7 @@ public class ExpressConfiguration {
     @Bean
     public DispatcherServlet dispatcherServlet() {
         DispatcherServlet dispatcherServlet = new DispatcherServlet();
-        dispatcherServlet.setDetectAllHandlerMappings(false);
+        dispatcherServlet.setDetectAllHandlerMappings(true);
         dispatcherServlet.setDispatchOptionsRequest(true);
         dispatcherServlet.setDispatchTraceRequest(true);
         dispatcherServlet.setThrowExceptionIfNoHandlerFound(true);
@@ -73,7 +76,9 @@ public class ExpressConfiguration {
                 configurer.addRoutes(context);
             }
         }
-        return new ExpressHandlerMapping(context);
+        ExpressHandlerMapping handlerMapping = new ExpressHandlerMapping(context);
+        handlerMapping.setOrder(0);
+        return handlerMapping;
     }
 
     protected void addHttpMessageConverters(List<HttpMessageConverter<?>> messageConverters) {
@@ -113,8 +118,7 @@ public class ExpressConfiguration {
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
         addHttpMessageConverters(messageConverters);
 
-        ExpressHandlerAdapter expressHandlerAdapter = new ExpressHandlerAdapter();
-        expressHandlerAdapter.setMessageConverters(messageConverters);
+        ExpressHandlerAdapter expressHandlerAdapter = new ExpressHandlerAdapter(messageConverters, 10_000L);
         return expressHandlerAdapter;
     }
 
