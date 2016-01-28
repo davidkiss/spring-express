@@ -1,8 +1,9 @@
+### Overview
 Spring Express = [Spring](http://spring.io/) + [Express.js](http://expressjs.com/).
 
-A simple and easy-to-learn Spring-based web framework inspired by Express.js.
+A simple and easy-to-learn [Spring-based](http://spring.io/) web framework inspired by [Express.js](http://expressjs.com/).
 
-# Sample Application class to start the web application
+### Sample Application class to start the web application
 ```java
 @SpringBootApplication
 @EnableAutoConfiguration
@@ -17,7 +18,7 @@ public class SampleApplication {
 }
 ```
 
-# Sample Express route configuration
+### Sample Express route configuration
 ```java
 @Configuration
 public class SampleRouteConfig implements ExpressRouteConfigurer {
