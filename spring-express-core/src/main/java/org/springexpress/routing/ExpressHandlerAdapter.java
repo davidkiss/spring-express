@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * Created by david on 2016-01-22.
+ * Based on https://github.com/spring-projects/spring-framework/blob/master/spring-webmvc/src/main/java/org/springframework/web/servlet/mvc/method/annotation/RequestMappingHandlerAdapter.java
  */
 public class ExpressHandlerAdapter implements HandlerAdapter{
     private static final Logger LOG = LoggerFactory.getLogger(ExpressHandlerAdapter.class);
