@@ -2,7 +2,7 @@ Spring Express = Spring + Express.js.
 
 A simple and easy to learn Spring-based web framework inspired by Express.js.
 
-# Main class
+# Sample Application class to start the web application
 ```java
 @SpringBootApplication
 @EnableAutoConfiguration
@@ -17,7 +17,7 @@ public class SampleApplication {
 }
 ```
 
-# Routes
+# Sample Express route configuration
 ```java
 @Configuration
 public class SampleRouteConfig implements ExpressRouteConfigurer {
