@@ -1,24 +1,21 @@
-Spring Express = Spring + Express.js.
+package org.springexpress.sample;
 
-A simple and easy to learn Spring-based web framework inspired by Express.js.
+import org.springexpress.routing.ExpressContext;
+import org.springexpress.config.ExpressRouteConfigurer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.AsyncRestTemplate;
 
-# Main class
-```java
-@SpringBootApplication
-@EnableAutoConfiguration
-@Import(ExpressConfiguration.class)
-public class SampleApplication {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.Future;
 
-    public static void main(String[] args) {
-        // By default, application will run on port 8080.
-        // To change it, use system property -Dserver.port=<port> when starting the application
-		SpringApplication.run(SampleApplication.class, args);
-	}
-}
-```
-
-# Routes
-```java
+/**
+ * Created by david on 2016-01-26.
+ */
 @Configuration
 public class SampleRouteConfig implements ExpressRouteConfigurer {
     private static final Logger LOG = LoggerFactory.getLogger(SampleRouteConfig.class);
@@ -70,4 +67,3 @@ public class SampleRouteConfig implements ExpressRouteConfigurer {
         }));
     }
 }
-```
