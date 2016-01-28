@@ -1,6 +1,6 @@
-Spring Express = Spring + Express.js.
+Spring Express = [Spring](http://spring.io/) + [Express.js](http://expressjs.com/).
 
-A simple and easy to learn Spring-based web framework inspired by Express.js.
+A simple and easy-to-learn Spring-based web framework inspired by Express.js.
 
 # Sample Application class to start the web application
 ```java
